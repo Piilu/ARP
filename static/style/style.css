@@ -1,0 +1,411 @@
+body{
+    background-color: white;
+    font-family:'Poppins';
+    margin: 0;
+}
+
+.center-text{
+    text-align: center;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+
+    
+}
+.flex div{
+    
+    background-color: whitesmoke;
+    margin-bottom: 1em;
+    text-align: center;
+    height: auto;
+    width: 100%;;
+}
+
+
+.medium-text{
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+.flex .container-settings{
+  
+    border: none;
+    height: auto;
+    background-color: transparent;
+ 
+}
+.flex .container-info{
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-align: left;
+    background-color: transparent;
+}
+.flex .container-info div{
+    padding-left: 1em;
+    text-align: left;
+    margin: 0;
+    background-color: transparent;
+}
+.flex .container-info .sub-info{
+    padding-top: 0.5em;
+
+    text-align: left;
+    margin: 0;
+    background-color: transparent;
+}
+.flex .container-settings div{
+    border: none;
+    float: right;
+    height: auto;
+    width: 50%;
+    margin: 0;
+
+}
+.flex .upperpage{
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: none;
+}
+.flex .upperpage div{
+    width: 97%;
+}
+.flex .add-item-view{
+    border:none;
+    height: auto;
+}
+.flex .listview{
+    margin-bottom: 5%;
+    border: none;
+    background-color: transparent;
+    height: auto;
+    transition: 0.5s;
+}
+.flex .searchdiv{
+    text-align: left;
+    max-width: 30%;
+    background-color: transparent;
+}
+.flex .searchdiv input{
+    width: 50%;
+}
+
+ .list-section-1{
+     padding-bottom: 1em;
+     display: flex;
+     flex-wrap: row;
+     justify-content: left;
+     flex-wrap: wrap;
+}
+
+.add-item-view div{
+    border: none;
+    margin-top: 5%;
+    height: auto;
+}
+.add-item-view {
+    width: 100%;
+}
+.button-style-2{
+    background-color: transparent;
+    border: none;
+    padding: 0.8em;
+    color: white;
+    font-size: large;
+    transition: 0.5s;
+    float: right;
+    margin-right: 20%;
+    height: 3em;
+    display: none;
+    
+}
+
+.button-style-2:hover{
+    cursor: pointer;
+
+}
+.button-style-1{
+    background-color: rgb(128, 185, 173);
+    border: none;
+    padding: 0.8em;
+    color: white;
+    font-size: medium;
+    border-radius: 0.5em;
+    transition: 0.5s;
+}
+.button-style-1:hover{
+    cursor: pointer;
+    background-color: rgb(142, 209, 194);
+
+
+}
+.button-style-1:focus{
+
+    border: none;
+
+
+}
+.button-style-round{
+    background-color: rgb(142, 209, 194);
+    border: none;
+    padding: 1em;
+    color: white;
+    border-radius: 0.5em ;
+    font-size:smaller;
+    transition: 0.5s;
+    
+}
+.button-style-fix{
+    background-color: rgb(142, 209, 194);
+    border: none;
+    padding: 1em;
+    color: white;
+    border-radius: 0.5em ;
+    font-size:smaller;
+    transition: 0.5s;
+    
+}
+.button-style-fix:hover{
+    cursor: pointer;
+    background-color: rgb(179, 226, 216);
+    
+}
+.button-style-:hover{
+    cursor: pointer;
+    background-color: rgb(179, 226, 216);
+    
+}
+.button-style-round:hover{
+    cursor: pointer;
+    background-color: rgb(179, 226, 216);
+}
+input{
+    width: 30%;
+    border: none;
+    background-color: whitesmoke;
+    padding: 1em;
+    font-size: medium;
+    border-radius: 00.5em;
+}
+select{
+    width: 30%;
+    border: none;
+    background-color: whitesmoke;
+    padding: 1em;
+    font-size: medium;
+    border-radius: 00.5em;
+}
+select:focus{
+    outline: none;
+    border: solid rgba(158, 231, 173, 0.651) 2px;
+}
+input[type='file']{
+    width: 100%;
+    border: none;
+    background-color: whitesmoke;
+    padding: 1em;
+    font-size: medium;
+    border-radius: 00.5em;
+}
+input:focus{
+    outline: none;
+    border: solid rgba(158, 231, 173, 0.651) 2px;
+}
+
+textarea{
+    background-color: whitesmoke;
+    resize: vertical ;
+    padding: 0.5em;
+    font-size:large;
+    font-weight: 100;
+    border:none;
+    border-radius: 0.5em;
+}
+textarea:focus{
+    outline: none;
+    border: solid rgba(158, 231, 173, 0.651) 2px;
+
+}
+
+.list-section-1 div{
+    padding: 1em;
+    border: none;
+    height: auto;
+    text-align: left;
+    margin: 0;
+    width: 20%;
+    float: left;
+}
+.list-section-1 .pdfplace{
+    width: 10%;
+}
+.item-text{
+    display: inline;
+    margin-left: 5%;  
+}
+.inline-only{
+    display: inline; 
+
+}
+
+.item-text-bold{
+    display: inline;
+
+     margin-left: 15%;
+}
+
+.noitems{
+    opacity: 0.5;
+    color: rgb(60, 63, 65);
+    font-size: xx-large;
+}
+.error{
+    color:red;
+    text-align: left;
+    padding-left: 0.5em;
+
+}
+#uploadBtn{
+    display: inline-block;
+    width: 100%;
+}
+.filea{
+    text-decoration: none;
+    color: white;
+    padding: 0.3em;
+    border-radius: 1em;
+    background-color: orange;
+    /*background-color: lightskyblue;*/
+    padding-left: 1em;
+    padding-right: 1em;
+    transition: 0.5s;
+
+}
+.atext{
+    display: block;
+    
+    color: rgb(102, 194, 255);
+}
+.filea:hover{
+    opacity: 0.5;
+}
+
+.texta{
+    display: block;
+    margin-top: 0.5em;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(130, 169, 182);
+    text-decoration: none;
+
+}
+.texta:hover{
+    cursor: pointer;
+}
+
+.active{
+    background-color: rgb(173, 203, 204);
+}
+.activedrop{
+    background-color: rgb(255, 255, 255);
+}
+
+
+@media only screen and (max-width: 1700px){
+    .flex{
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    
+}
+@media only screen and (max-width: 1520px){
+    .flex{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    
+}
+@media only screen and (max-width: 1420px){
+    .flex{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+}
+
+@media only screen and (max-width: 1163px){
+    .flex{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    input[type="text"]{
+        width: 90%;
+    }
+    input[type='file']{
+        width: 92%;
+    }
+    #uploadBtn{
+        display: inline-block;
+        margin-top: 1em;
+        width: 93%;
+    }
+    
+    .flex .add-item-view input {
+        margin-top: 5%;
+        margin-right: 2%;
+        
+    }
+
+    .list-section-1 div{
+       
+        margin: 0;
+      
+        width: 100%;
+        padding: 0.5em;
+    
+    }
+    
+    .item-text-bold{
+    
+         margin-left: 0%;
+    }
+    .list-section-1 .pdfplace{
+        width: 90%;
+    }
+    select{
+        width: 98%;
+        margin-top: 1em;
+        margin-left: 1%;
+        float: left;
+
+    }
+
+    .button-style-round{
+        margin-top: 1em;
+        width: 96%;
+        margin-left: 0;
+    }
+
+}
+
+@media only screen and (max-width: 1010px){
+    .button-style-2{
+        display: block;
+        margin-right: 10%;
+    }
+    .flex .searchdiv{
+        text-align: left;
+        max-width: 80%;
+        background-color: transparent;
+    }
+
+}
+

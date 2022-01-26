@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/login.css">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-logo">
+            <a href="/">
+                <h1>ARP</h1>
+            </a>
+        </div>
+    </div>
+    <div class="center-text">
+        <div class="login-container">
+            <h2>Logi sisse</h2>
+            <form method="post">
+                <div style="padding-top: 1em;">
+                    <p style="text-align: center;" id="error" class="error"></p>
+                    <input placeholder="Nimi" type="text" name="usname" id="usname">
+                </div>
+                <div style="padding-top: 1em;">
+                    <input placeholder="Parool" type="password" name="passw" id="passw">
+                </div>
+                <div style="padding-top: 1em;padding-bottom: 4em;">
+                    <input type="submit" class="button-style-1" value="Logi sisse" name="" id="">
+                    <div style=" margin-top: 1em; ">
+
+                        <a class="texta" href="/register/">Loo uus kasutaja</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script>
+            var errorlog= localStorage.getItem("errorlog");
+            var errorlogacc = localStorage.getItem("errorlogacc");
+            if(errorlog == "error"){
+                
+                document.getElementById('error').innerHTML = "Palun sisesta õiged andmed";
+
+                localStorage.removeItem("errorlog");
+            }
+            else if(errorlogacc == "error"){
+                document.getElementById('error').innerHTML = "Sellist kasutajat ei eksisteeri";
+                localStorage.removeItem("errorlogacc");
+
+            }
+            else if(errorlog == "succ"){
+                //document.getElementById("succmessage").innerHTML = "Successfully registered. Please log in";
+                fadeIn("Successfully registered. Please log in.");
+                localStorage.removeItem("errorlog");
+
+            }
+    </script>
+</body>
+
+</html>

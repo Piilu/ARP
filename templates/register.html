@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/login.css">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-logo">
+            <a href="/">
+                <h1>ARP</h1>
+            </a>
+        </div>
+    </div>
+    <div class="center-text">
+        <div class="login-container">
+            <h2>Loo kasutaja</h2>
+            <p style="text-align: center;" id="error" class="error"></p>
+            <form method="post">
+                <div style="padding-top: 1em;">
+                    <input placeholder="Nimi" type="text" name="usname" id="usname">
+                </div>
+                <div style="padding-top: 1em;">
+                    <input placeholder="Email" type="text" name="email" id="email">
+                </div>
+                <div style="padding-top: 1em;">
+                    <input placeholder="Parool" type="password" name="passw" id="passw">
+                </div>
+                <div style="padding-top: 1em;padding-bottom: 4em;">
+                    <input type="submit" class="button-style-1" value="Loo" name="" id="">
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        var errorreg = localStorage.getItem('errorreg');
+
+        if (errorreg == "error") {
+            document.getElementById('error').innerHTML = "See kasutaja on olemas";
+            localStorage.removeItem("errorreg");
+        }
+        else if (errorreg == "erroremail") {
+            document.getElementById('error').innerHTML = "Vale email";
+            localStorage.removeItem("errorreg");
+
+
+        }
+        else if (errorreg == "errorusername") {
+            document.getElementById('error').innerHTML = "Kasutajanimes peab olema vähemalt 3 tähte";
+            localStorage.removeItem("errorreg");
+
+        }
+
+        else if (errorreg == "errorpassword") {
+            document.getElementById('error').innerHTML = "Paroolis peab olema vähemalt 8 tähte või tähemärki";
+            localStorage.removeItem("errorreg");
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static//style/style.css">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+    <link rel="stylesheet" href="/static/style/modal.css">
+    <link rel="stylesheet" href="/static/style/animation.css">
+    <link rel="stylesheet" href="/static/style/progressbar.css">
+    <link rel="stylesheet" href="/static/style/drop-down.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/style/alert.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/javascript/script.js"></script>
+    <script src="/static/javascript/modal.js"></script>
+    <script src="/static/javascript/makeqqr.js"></script>
+    <script src="/static/javascript/plainjs.js"></script>
+    <script src="/static/javascript/alert.js"></script>
+
+
+
+    <title>Märkmik</title>
+</head>
+
+<body>
+    
+    <!-- The Modal -->
+    <div style="animation: fadein 0.5s;" id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span onclick="closeModal('myModal')" class="close">&times;</span>
+            <div style="text-align: center;">
+                <canvas id="qr-code"></canvas>
+                <p style="margin:0; font-style:italic" id="qrfor"></p>
+            </div>
+        </div>
+
+    </div>
+    <div style="animation: fadein 0.5s;" id="notime" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span onclick="closeModal('notime')" class="close">&times;</span>
+            <div style="text-align: center;">
+
+                <h2>Pole jõudnud</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="navbar">
+        <div style="float:left" class="nav-logo"><a href="">
+                <h1>Digipäevik</h1>
+            </a></div>
+        <button onclick="openMenu()" class="button-style-2">☰</button>
+        <div>
+            <li><button onclick="openModal('notime')">Hooldus toimingud</button></li>
+            <li><button onclick="openModal('notime')">Hooldus kava</button></li>
+            <li><button onclick="openModal('myModal'),generateQRCode(window.location.href)">Vaata QR koodi</button></li>
+            <li><a href="/">ARP</a></li>
+
+        </div>
+
+    </div>
+    <div id="screen" class="flex">
+        <div id="dropmenu" style="display: none;background-color:rgb(250, 250, 250);" class="drop-area">
+            <a href="/">ARP</a>
+            <button onclick="openModal('myModal'),generateQRCode(window.location.href)">Vaata QR koodi</button>
+            <button onclick="openModal('notime')">Hooldus kava</button>
+            <button onclick="sendObjekt()">Hooldus toimingud</button>
+
+
+        </div>
+
+        <div class="upperpage">
+
+            <div class="container-settings">
+                <div style="text-align: right; background-color: white;">
+
+
+                    <button style="margin-top: 1em; ;" id="dropdownadd" onclick="addnew()" class="button-style-1 ">Sissekande lisamine</button>
+                </div>
+            </div>
+            <div style=" text-align: left; animation: fadein 0.5s; display:none; background-color: white;" id="add-new"
+                class="add-item-view">
+                <div style="width: 92%; margin-left: auto; margin-right: auto; display: none; animation: fadein 0.5s;" id="alertsucc" class="alert success">
+                    <span onclick="closeAlert()" class="closebtn">&times;</span>  
+                    <strong>Lisatud!</strong> Uus sissekanne edukalt lisatud.
+                  </div>
+                <p style="margin-left: 1%;margin-bottom: 2%; text-align: left;" class="medium-text">Lisa sissekanne:</p>
+                <p class="error" id="errormsg"></p>
+                <form style="text-align: center;" id="uploadForm" method="post" enctype="multipart/form-data">
+                    <input id='author' name="author" type="text" placeholder="Tegija*" required>
+                    <select id="notetype" name="notetype" required>
+                        <option value="" disabled selected hidden>Vali liik *</option>
+                        <option>Hooldus</option>
+                        <option>Parandus</option>
+                        <option>Väljakutse</option>
+                        <option>Häire</option>
+                    </select>
+                    <select id="system" name="system" required>
+                        <option value="" disabled selected hidden>Vali süsteem *</option>
+                        <option>ATS</option>
+                        <option>Valve</option>
+                        <option>Läbipääs</option>
+                    </select>
+                    <div style="text-align: left; background-color: white;">
+                        <input accept="image/jpeg,image/png,application/pdf,image/x-eps" style=" display:none;"
+                            type="file" id="upfile" name="filename">
+                        <label id="uploadBtn" onmouseout="fileName();" class="button-style-1" for="upfile">Lisa fail
+                            <p style=" display: inline; ">ㅤ|ㅤㅤ</p>
+                            <p style="margin: 0; display: inline;" id="filenametext" name="filenametext">Pole valitud
+                            </p>
+                        </label>
+                        <div id="pbid" class="progress-bar">
+                            <div id="pbfid" class="progrss-bar-fill">
+
+                                <span id="progresstextid" class="progress-bar-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style=" background-color: white;">
+                        <textarea id='dec' name="dec" placeholder="Sisu*" style="width: 100%;height:5em;" type="text"
+                            required></textarea>
+                    </div>
+                    <div style=" background-color: white;">
+                        <input id="lisabtnid" class="button-style-1" type="submit" value="Lisa">
+                    </div>
+                </form>
+            </div>
+            <div class="container-info">
+                <p style="font-weight: 100;" class="medium-text">Objekti Info:</p>
+                <div>
+                    <div class="sub-info">
+                        <strong>
+                            <p style="display: inline;">Objekt nimi:</p>
+                        </strong>
+                        <p id="objektinimi" style="display: inline;"></p>
+                    </div>
+                    <div class="sub-info">
+                        <strong>
+                            <p  style="display: inline;">Aadress:</p>
+                        </strong>
+                        <p id="objektiaadress" style="display: inline;"></p>
+
+                    </div>
+                    <div class="sub-info">
+                        <strong>
+                            <p  style="display: inline;">Kontakt:</p>
+                        </strong>
+                        <p id="objektikontakt" style="display: inline;"></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="margin-bottom: 1em;;" class="medium-text">Sissekanded:</p>
+        <div class="listview" id="listofitems">
+
+
+            <h2 id="noitems" class="noitems">SISSEKANDED PUUDUVAD</h2>
+
+
+
+
+
+        </div>
+
+        <script>
+
+
+            const progressbar = document.getElementById("pbid");
+            const inpFile = document.getElementById("upfile");
+            const uploadForm = document.getElementById("uploadForm");
+            const uploadName = document.getElementById("filenametext");
+
+            const progressBarFill = document.getElementById("pbfid");
+            const progressBarText = document.getElementById("progresstextid");
+
+            uploadForm.addEventListener("submit", uploadFile);
+
+            function uploadFile(e) {
+                pbid.style.display = "block";
+
+                e.preventDefault();
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "");
+
+                xhr.upload.addEventListener("progress", e => {
+
+                    const precent = e.lengthComputable ? (e.loaded / e.total) * 100 : 0;
+
+                    progressBarFill.style.maxWidth = precent.toFixed(2) + "%";
+                    progressBarText.innerHTML = precent.toFixed(2) + "%";
+                    if (progressBarText.innerHTML == "100.00" + "%") {
+                        addnewItem(uploadName.innerHTML);
+                        console.log("File uploaded")
+                        //createPath();
+                        progressBarFill.style.maxWidth = 0;
+                        progressBarText.innerHTML = '0%'
+                        progressbar.style.display = 'none';
+                        uploadName.innerHTML = "Pole valitud"
+                        inpFile.value = ''
+                    }
+
+                });
+                //xhr.setRequestHeader("Content-Type", "multipart/form-data");
+
+
+                xhr.send(new FormData(uploadForm));
+
+            }
+
+        </script>
+</body>
+
+</html>

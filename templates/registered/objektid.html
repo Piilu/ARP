@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/login.css">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+    <link rel="stylesheet" href="/static/style/task.css">
+    <link rel="stylesheet" href="/static/style/drop-down.css">
+    <link rel="stylesheet" href="/static/style/modal.css">
+    <link rel="stylesheet" href="/static/style/animation.css">
+    <link rel="stylesheet" href="/static/style/alert.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/javascript/plainjs.js"></script>
+    <script src="/static/javascript/makeqqr.js"></script>
+    <script src="/static/javascript/modal.js"></script>
+    <script src="/static/javascript/objektio.js"></script>
+    <script src="/static/javascript/alert.js"></script>
+
+
+
+
+
+
+
+
+    <title>ARP</title>
+</head>
+
+<body>
+    <!-- The Modal -->
+    <div style="animation: fadein 0.5s;" id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span onclick="closeModal('myModal')" class="close">&times;</span>
+            <div style="text-align: center;">
+                <canvas id="qr-code"></canvas>
+                <p style="margin:0; font-style:italic" id="qrfor"></p>
+            </div>
+        </div>
+
+    </div>
+    <div style="animation: fadein 0.5s;" id="notime" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span onclick="closeModal('notime')" class="close">&times;</span>
+            <div style="text-align: center;">
+
+                <h2>Pole jõudnud</h2>
+            </div>
+        </div>
+
+    </div>
+    <div style=" animation: fadein 0.5s;" id="moreobjectinfo" class="modal">
+
+        <!-- Modal content -->
+        <div id="detailedmodal" class="modal-content ">
+            <span onclick="closeModal('moreobjectinfo')" class="close">&times;</span>
+            <div style=" text-align: center;">
+                <div>
+                    <h2>DETAILSEM VAADE</h2>
+                </div>
+                <div>
+                    <div id="maininfo">
+                        <strong>
+                            <p class="inline-only">Klient:</p>
+                        </strong>
+                        <p id="detailklient" class="inline-only"></p>
+                        <br>
+                        <strong>
+                            <p class="inline-only">Aadress:</p>
+                        </strong>
+                        <p id="detailaadress" class="inline-only"></p>
+                        <br>
+
+                        <strong>
+                            <p class="inline-only">Kontakt:</p>
+                        </strong>
+                        <p id="detailkontakt" class="inline-only"></p>
+
+
+
+
+
+                    </div>
+                    <div id="maininfo">
+                        <strong>
+                            <p class="inline-only">Email:</p>
+                        </strong>
+                        <p id="detailemail" class="inline-only"></p>
+                        <br>
+                        <strong>
+                            <p class="inline-only">Telefon:</p>
+                        </strong>
+                        <p id="detailtel" class="inline-only"></p>
+                        <br>
+
+                        <strong>
+                            <p class="inline-only">Süsteem:</p>
+                        </strong>
+                        <p id="detailsys" class="inline-only"></p>
+
+
+                    </div>
+                </div>
+                <div id="qrinfo" style=" text-align: center;">
+                    <canvas id="qr-code-object"></canvas>
+                    <a class="atext" style="font-size: 0.8em; margin:0; font-style:italic" id="obqrfor"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="navbar">
+
+        <div style="float:left" class="nav-logo"><a href="/">
+                <h1>ARP</h1>
+            </a></div>
+        <button onclick="openMenu()" class="button-style-2">☰</button>
+
+        <div>
+            <li><a href="/">Avaleht</a></li>
+            <li><a class="active" href="/objektid/">Objektid</a></li>
+            <li><button onclick="openModal('notime')">Hooldus kava</button></li>
+            <li><button onclick="openModal('notime')">Hooldus toimingud</button></li>
+            <li><button onclick="logOut()">Logi välja</button></li>
+        </div>
+
+    </div>
+    <div id="mainflex" style="margin-bottom: 1em;" class="flex">
+        <div id="dropmenu" style="display: none;background-color:rgb(250, 250, 250);" class="drop-area">
+            <button onclick="logOut()">Logi välja</button>
+            <button onclick="openModal('notime')">Hooldus toimingud</button>
+            <button onclick="openModal('notime')">Hooldus kava</button>
+            <a style="background-color: white;" href="/objektid/">Objektid</a>
+            <div style="margin: 0; background-color: transparent; "><a href="/">Avaleht</a></div>
+            
+            
+        </div>
+        <div class="upperpage">
+            
+            <div class="container-settings">
+                <div style="text-align: right; background-color: transparent;">
+                    
+                    
+                    <button style="margin-top: 1em;" id="dropdownadd" onclick="addnewObject()" class="button-style-1 ">Lisa uus objekt</button>
+                </div>
+            </div>
+            
+          
+            <div style=" text-align: left; animation: fadein 0.5s; display:none; background-color: transparent; border-radius: 1em; padding: 1em; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);"
+                id="add-new-object" class="add-item-view">
+                <p style="margin-left: 1%;margin-bottom: 2%; text-align: left;" class="medium-text">Lisa objekt:</p>
+                <div style="width: 89%; margin-left: auto; margin-right: auto; display: none; animation: fadein 0.5s;"
+                    id="alertsucc" class="alert success">
+                    <span onclick="closeAlert()" class="closebtn">&times;</span>
+                    <strong>Lisatud!</strong> Uus objekt edukalt lisatud.
+                </div>
+                <p class="error" id="errormsg"></p>
+                <form class="objectform" style="text-align: center;" id="uploadForm" method="post">
+
+                    <input class="finput" id='klientid' name="klientid" type="text" placeholder="Klient*" required>
+                    <input class="finput" id='addressid' name="addressid" type="text" placeholder="Aadress*" required>
+                    <input class="finput" id='kontaktid' name="kontaktid" type="text" placeholder="Kontakt*" required>
+                    <input class="finput" id='klientemailid' name="klientemailid" type="text" placeholder="Email*"
+                        required>
+                    <input class="finput" id='telefonnr' name="telefonnr" type="text" placeholder="Telefon*" required>
+                    <br>
+
+
+
+                    <div
+                        style="opacity: 0.5; margin-left: auto; margin-right: auto; border-bottom:solid 2px rgb(196, 196, 196)">
+                    </div>
+                    <p style="margin-left: 1%;margin-bottom: 2%; text-align: left;" class="medium-text">Süsteem:</p>
+                    <div class="objectflex" style="background-color: transparent;">
+                        <div style="background-color: transparent;">
+                            <select id='system' onchange="showsysItem(this)" id="system" name="system">
+                                <option value="" disabled selected hidden>Vali süsteem*</option>
+                                <option>ATS</option>
+                                <option>Valve</option>
+                                <option>Läbipääs</option>
+                            </select>
+                        </div>
+                        <p style="margin-left: 1%">Valitud:</p>
+                        <p style="display: none;" id='systemitems'></p>
+                        <div style="background-color: transparent; color:lightgreen;" id="listofsystem"
+                            name='listofsystem' class="listsystem">
+                        </div>
+                        <div style=" background-color: transparent;" id="lisaobjektbtn">
+                            <input onclick="sendObjekt()" style="width: 50%; margin-top: 1em;" id="lisabtnid"
+                                class="button-style-1" type="button" value="Lisa">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div style="margin: 0;" class="searchdiv">
+                <form>
+                    <input placeholder="Otsi..."  type="text" name="otsi" id="otsi">
+                    <button  class="button-style-fix">Otsi</button>
+                </form>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div id="obiektidelist" style="background-color: transparent;">
+
+
+            <h2 id="noitems" class="noitems">Objektid PUUDUVAD</h2>
+        </div>
+    </div>
+
+</body>
+
+</html>

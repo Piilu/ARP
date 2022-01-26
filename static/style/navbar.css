@@ -1,0 +1,118 @@
+
+.navbar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: cadetblue;
+    height: 3.35em;
+    
+}
+.navbar div{
+    margin-left:20% ;
+    margin-right:22% ;
+}
+li {
+    float: right;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.5s;
+    margin: 0;
+    
+    
+  }
+  li button {
+    border: none;
+    height: auto;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.5s;
+    font-size: 16px;
+    height: 3.3em;
+
+
+    
+  }
+  li button:hover{
+    background-color: rgb(173, 203, 204);
+    cursor: pointer;
+
+  }
+  li a:hover {
+    background-color: rgb(173, 203, 204);
+
+  }
+
+h1{
+    margin-top: 0;
+}
+.nav-logo{
+    margin-left: 20%;
+    margin-right: 5%;
+    margin-top: 0;
+    width: 3%;
+   
+}
+.nav-logo a{
+    text-decoration: none;
+    color: white;
+    transition: 0.5s;
+}
+.nav-logo a:hover{
+    color: wheat;
+    width: 5%;
+}
+
+@media only screen and (max-width: 1700px){
+    .nav-logo{
+        margin-left: 15%;
+        margin-right: 5%;
+    }
+    .navbar div{
+        margin-left:15% ;
+    }
+    
+}
+@media only screen and (max-width: 1520px){
+    .nav-logo{
+        margin-left: 10%;
+        margin-right: 5%;
+    }
+    .navbar div{
+        margin-left:10% ;
+        margin-right: 15%;
+
+    }
+
+
+}
+@media only screen and (max-width: 1420px){
+    .nav-logo{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .navbar div{
+        margin-left:5% ;
+    }
+
+}
+
+@media only screen and (max-width: 1010px){
+    li{
+        display: none;
+    }
+
+}
+
+
+
+  
