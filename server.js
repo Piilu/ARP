@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const dotenv = require('dotenv');
 const sessions = require('express-session');
 const mysql = require('mysql');
+const { connect } = require('http2');
 
 dotenv.config();
 const port = process.env.PORT || process.env.SERVER_PORT;
@@ -25,19 +26,25 @@ app.use(sessions({
     resave: false
 }));
 
+
+var connection;
 //CONNECT TO DATABASE//
-var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-});
+function connectDb(){
+     connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+    });
+}
+connectDb()
 
 connection.connect(function (err) {
     // in case of error
     if (err) {
         console.log(err.code);
         console.log(err.fatal);
+        connectDb();
     }
 });
 
