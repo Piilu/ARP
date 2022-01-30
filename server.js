@@ -27,26 +27,37 @@ app.use(sessions({
 }));
 
 
-var connection;
 //CONNECT TO DATABASE//
-function connectDb(){
-     connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
-    });
-}
-connectDb()
-
-connection.connect(function (err) {
-    // in case of error
-    if (err) {
-        console.log(err.code);
-        console.log(err.fatal);
-        connectDb();
-    }
+var db_config = ({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
 });
+
+var connection;
+function handleDisconnect(){
+    connection = mysql.createConnection(db_config); 
+
+    connection.connect(function (err) {
+        // in case of error
+        if (err) {
+            console.log(err.code);
+            console.log(err.fatal);
+            setTimeout(handleDisconnect, 2000);
+        }
+    });
+    connection.on('error', function(err) {
+        console.log('db error', err);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+          handleDisconnect();                         
+        } else {                                      
+          throw err;                                  
+        }
+      });
+}
+handleDisconnect();
+
 
 ////////////
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -94,6 +105,7 @@ io.on('connection', (socket) => {
                     return;
                 }
                 console.log("PÄEVIK LAETI EDUKALT");
+                
                 //console.log(rows2)
                 io.to(socket.id).emit('join_send_objekt', rows2)
 
@@ -181,7 +193,17 @@ io.on('connection', (socket) => {
     });
 
 });
+app.use((req, res, next) => {
+    res.status(404).send({
+    status: 404,
+    error: "Not found"
+    })
+   })
 
+app.use((error, req, res, next) => {
+    console.error(error.stack);
+    res.status(500).send("Something Broke!");
+   })
 
 server.listen(port, () => {
     console.log('Server online on port', port);
