@@ -12,7 +12,8 @@ document.getElementById('qrfor').innerHTML = window.location.href
 
 function generateQRCodeForNotes(data) {
     var objecid = data.id.split(',')[0]
-    var url = window.location.href.split('/objektid/')[0]+'/digipaevik/objekt/'+objecid+'/'
+    var url = '/digipaevik/objekt/'+objecid+'/' //    var url = window.location.href.split('/objektid/')[0]+'/digipaevik/objekt/'+objecid+'/'
+
     var qr;
     qr = new QRious({
         element: document.getElementById('qr-code-object'),

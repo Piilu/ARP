@@ -192,7 +192,7 @@ router.get('/digipaevik/objekt/:id', (req, res) => {
 router.get('/', (req, res) => {
     session =req.session
     if(session.userid){
-     res.sendFile("./templates/registered/home.html", { root: __dirname });
+     res.sendFile("./templates/registered/objektid.html", { root: __dirname });
 
     }
     else{
