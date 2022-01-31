@@ -85,12 +85,12 @@ router.post("/",(req,res)=>{
             session = req.session;
             if(rows.length > 0){
 
-                session.userid = row.Username;
+                session.useridarp = row.Username;
                 console.log("UserID set");
             }
-            //localStorage.setItem("Username", session.userid);
+            //localStorage.setItem("Username", session.useridarp);
             //res.redirect("/");
-            res.send("<script> localStorage.setItem('Username',"+"'"+session.userid+"'"+" ); location.replace('/'); </script>");
+            res.send("<script> localStorage.setItem('Username',"+"'"+session.useridarp+"'"+" ); location.replace('/'); </script>");
             
         }
         else{
@@ -144,7 +144,7 @@ router.post("/register/",(req,res)=>{
                         }
                         console.log("Register insert query succesfully executed");
 
-                        res.send("<script>localStorage.setItem('Username',"+"'"+session.userid+"'"+" );  localStorage.setItem('errorlog','succ'); location.replace('/'); </script>");
+                        res.send("<script>localStorage.setItem('Username',"+"'"+session.useridarp+"'"+" );  localStorage.setItem('errorlog','succ'); location.replace('/'); </script>");
 
                     });
             }
@@ -191,7 +191,7 @@ router.get('/digipaevik/objekt/:id', (req, res) => {
 });
 router.get('/', (req, res) => {
     session =req.session
-    if(session.userid){
+    if(session.useridarp){
      res.sendFile("./templates/registered/objektid.html", { root: __dirname });
 
     }
@@ -202,7 +202,7 @@ router.get('/', (req, res) => {
 });
 router.get('/register/', (req, res) => {
     session =req.session
-    if(session.userid){
+    if(session.useridarp){
         res.send("<script>location.replace('/');</script>")
 
 
@@ -216,7 +216,7 @@ router.get('/register/', (req, res) => {
 
 router.get('/objektid/',function(req,res){
     session = req.session
-    if(session.userid){
+    if(session.useridarp){
         res.sendFile("./templates/registered/objektid.html",{root:__dirname})
     }
     else{

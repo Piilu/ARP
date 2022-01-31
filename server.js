@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
 
         });
     })
-    socket.on("join", function (data) {
+    socket.on("joinarp", function (data) {
         $query = 'SELECT * FROM paevikud WHERE ObjektID='+'"'+data.id+'"';
         connection.query($query, function (err, rows, fields) {
             if (err) {

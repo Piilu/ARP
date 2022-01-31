@@ -7,7 +7,7 @@ window.onload = function () {
 }
 var socket = io();
 function join(id) {
-    socket.emit("join", {
+    socket.emit("joinarp", {
         action: "Connected",
         id: id
     });
