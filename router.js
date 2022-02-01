@@ -10,8 +10,10 @@ const dotenv = require('dotenv');
 const mysql = require('mysql');
 const req = require('express/lib/request');
 const res = require('express/lib/response');
-const { fstat } = require('fs');
+const { fstat, rename } = require('fs');
+const { send } = require('express/lib/response');
 var session;
+var renamedfile;
 
 dotenv.config();
 //const ip = process.env.IP_ADDRESS
@@ -22,8 +24,8 @@ const storage = multer.diskStorage({
         cb(null, 'files/')
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
-        moviefile = file.originalname;
+        cb(null, Date.now()+'-'+file.originalname);
+        renamedfile = Date.now()+'-'+file.originalname;
     }
 })
 const upload = multer({ storage: storage })
@@ -47,8 +49,10 @@ connection.connect(function (err) {
 ////////////
 router.post("/digipaevik/objekt/:id/", upload.single('filename'), (req, res) => {
 
-    var filename2 = req.file.filename /// siis kui sama nimi on tee midagi nuud magama 
-    console.log(filename2)
+    var filename2 = renamedfile;//req.file.filename /// siis kui sama nimi on tee midagi nuud magama 
+    console.log("Router filename: "+filename2)
+    module.exports.renamedfile = renamedfile;
+
     // var url = 'http://'+process.env.IP_ADDRESS+'/digipaevik/'+filename+'/' 
     //console.log(url)
     //fs.mkdir("./files/"+regUsername+"", function(err) {
@@ -230,5 +234,4 @@ router.get("/logout/",function(req,res){
 
 
 });
-
-module.exports = router;
+module.exports.route = router;

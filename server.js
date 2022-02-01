@@ -49,7 +49,8 @@ app.use(cookieParser());
 
 
 app.use('/static', express.static("static"));
-app.use("/", router);
+app.use("/", router.route);
+
 var allClients = [];
 io.on('connection', (socket) => {
     allClients.push(socket);
@@ -107,12 +108,13 @@ io.on('connection', (socket) => {
     socket.on("addItem", function (data) {
         var url = '';
         //console.log('SIIN',data.failinimi)
+        console.log("SEE ON FILENAME: "+router.renamedfile);
         
         if (!data.failinimi.includes('.')) {
             url = "NONE"
         }
         else {
-            url = 'http://' + process.env.IP_ADDRESS + ':3000/digipaevik/' + data.failinimi + '/'
+            url = 'http://' + process.env.IP_ADDRESS + ':3000/digipaevik/' + router.renamedfile + '/'
         }
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
