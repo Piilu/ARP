@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
             url = "NONE"
         }
         else {
-            url = 'http://' + process.env.IP_ADDRESS + ':3000/digipaevik/' + router.renamedfile + '/'
+            url = 'http://' + process.env.IP_ADDRESS + ':2000/digipaevik/' + router.renamedfile + '/'
         }
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();

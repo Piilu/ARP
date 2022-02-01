@@ -24,8 +24,9 @@ const storage = multer.diskStorage({
         cb(null, 'files/')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now()+'-'+file.originalname);
-        renamedfile = Date.now()+'-'+file.originalname;
+	renamedfile = Date.now()+'-'+file.originalname;
+        cb(null, renamedfile);
+        
     }
 })
 const upload = multer({ storage: storage })
