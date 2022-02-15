@@ -23,7 +23,8 @@ app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized: true,
     cookie: { maxAge: long },
-    resave: false
+    resave: false,
+    name: "arp",
 }));
 
 
