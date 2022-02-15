@@ -97,7 +97,7 @@ function sendObjekt(){
     }
     else{
         document.getElementById('errormsg').innerHTML = ""
-        showAlert() // SEE TULLEB MUUTA KUN KUI ANDMEBAAS MAAS SIIS UTLEB ET ANDMED LAKSID LABI
+        showAlert() // SEE TULLEB MUUTA KUNA KUI ANDMEBAAS MAAS SIIS UTLEB ET ANDMED LAKSID LABI
         socket.emit('objectitem',{
             klient: klient.value,
             aadress: aadress.value,
